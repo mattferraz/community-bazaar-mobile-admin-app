@@ -7,14 +7,12 @@ import 'package:bazaar_adm/models/supervisory_organ.dart';
 class SupervisoryOrganRepository {
 
   Future<List<SupervisoryOrgan>> findAllSupervisoryOrgans() async {
-    List<SupervisoryOrgan> supervisoryOrgans = [];
-
     final http.Response response = await http.get(
       Uri.parse(ApiConstants.supervisoryOrgansUrl),
       headers: ApiConstants.headers,
     );
     Iterable<Map<String, dynamic>> decodedBody = json.decode(utf8.decode(response.bodyBytes));
-    supervisoryOrgans = List<SupervisoryOrgan>.from(decodedBody.map((x) => SupervisoryOrgan.fromJson(x)));
+    List<SupervisoryOrgan> supervisoryOrgans = List<SupervisoryOrgan>.from(decodedBody.map((x) => SupervisoryOrgan.fromJson(x)));
 
     return supervisoryOrgans;
   }
@@ -42,9 +40,9 @@ class SupervisoryOrganRepository {
     return supervisoryOrganCreated;
   }
 
-  Future updateSupervisoryOrgan(int id, SupervisoryOrgan supervisoryOrgan) async {
+  Future updateSupervisoryOrgan(SupervisoryOrgan supervisoryOrgan) async {
     final http.Response response = await http.put(
-      Uri.parse("${ApiConstants.supervisoryOrgansUrl}/$id"),
+      Uri.parse("${ApiConstants.supervisoryOrgansUrl}/${supervisoryOrgan.id}"),
       headers: ApiConstants.headers,
       body: json.encode(supervisoryOrgan.toJson())
     );

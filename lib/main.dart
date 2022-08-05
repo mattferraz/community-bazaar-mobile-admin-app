@@ -1,5 +1,4 @@
-import 'package:bazaar_adm/constants/size_config.dart';
-import 'package:bazaar_adm/views/sign_in_view.dart';
+import 'package:bazaar_adm/widgets/base_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignInView(),
+      home: const BaseView(),
     );
   }
 }
