@@ -1,4 +1,4 @@
-import 'package:bazaar_adm/widgets/base_view.dart';
+import 'package:bazaar_adm/views/base_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,6 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  static int selectedViewIndex = 0;
 
   // This widget is the root of your application.
   @override

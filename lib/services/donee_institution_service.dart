@@ -1,17 +1,21 @@
 import 'dart:convert';
+import 'package:bazaar_adm/utils/api_response_handler.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:bazaar_adm/constants/api_constants.dart';
 import '../models/donee_institution.dart';
 
-class DoneeInstitutionRepository {
+class DoneeInstitutionService {
+
+  final Map<String, String> headers = ApiConstants.headers;
+  final String doneeInstitutionsUrl = ApiConstants.doneeInstitutionsUrl;
 
   Future<List<DoneeInstitution>> findAllDoneeInstitutions() async {
     final http.Response response = await http.get(
-      Uri.parse(ApiConstants.doneeInstitutionsUrl),
-      headers: ApiConstants.headers
+      Uri.parse(doneeInstitutionsUrl),
+      headers: headers
     );
-    final Iterable<Map<String, dynamic>> decodedBody = json.decode(utf8.decode(response.bodyBytes));
+    final Iterable<dynamic> decodedBody = ApiResponseHandler.handleApiReponse(response);
     final List<DoneeInstitution> doneeInstitutions = List<DoneeInstitution>.from(decodedBody.map((x) => DoneeInstitution.fromJson(x)));
     
     return doneeInstitutions;
@@ -19,10 +23,10 @@ class DoneeInstitutionRepository {
 
   Future<DoneeInstitution> findDoneeInstitutionById(int id) async {
     final http.Response response = await http.get(
-      Uri.parse("${ApiConstants.doneeInstitutionsUrl}/$id"),
-      headers: ApiConstants.headers
+      Uri.parse("$doneeInstitutionsUrl/$id"),
+      headers: headers
     );
-    final Map<String, dynamic> decodedBody = json.decode(utf8.decode(response.bodyBytes));
+    final Map<String, dynamic> decodedBody = ApiResponseHandler.handleApiReponse(response);
     final DoneeInstitution doneeInstitution = DoneeInstitution.fromJson(decodedBody);
 
     return doneeInstitution;
@@ -30,11 +34,11 @@ class DoneeInstitutionRepository {
 
   Future<DoneeInstitution> createDoneeInstitution(DoneeInstitution doneeInstitution) async {
     final http.Response response = await http.post(
-      Uri.parse(ApiConstants.doneeInstitutionsUrl),
-      headers: ApiConstants.headers,
+      Uri.parse(doneeInstitutionsUrl),
+      headers: headers,
       body: json.encode(doneeInstitution.toJson())
     );
-    final Map<String, dynamic> decodedBody = json.decode(utf8.decode(response.bodyBytes));
+    final Map<String, dynamic> decodedBody = ApiResponseHandler.handleApiReponse(response);
     final DoneeInstitution createDoneeInstitution = DoneeInstitution.fromJson(decodedBody);
 
     return createDoneeInstitution;
@@ -42,17 +46,19 @@ class DoneeInstitutionRepository {
 
   Future updateDoneeInstitution(DoneeInstitution doneeInstitution) async {
     final http.Response response = await http.put(
-      Uri.parse("${ApiConstants.doneeInstitutionsUrl}/${doneeInstitution.id}"),
-      headers: ApiConstants.headers,
+      Uri.parse("$doneeInstitutionsUrl/${doneeInstitution.id}"),
+      headers: headers,
       body: json.encode(doneeInstitution.toJson())
     );
+    ApiResponseHandler.handleApiReponse(response);
   }
 
   Future deleteDoneeInstitutionById(int id) async {
     final http.Response response = await http.delete(
-      Uri.parse("${ApiConstants.doneeInstitutionsUrl}/$id"),
-      headers: ApiConstants.headers
+      Uri.parse("$doneeInstitutionsUrl/$id"),
+      headers: headers
     );
+    ApiResponseHandler.handleApiReponse(response);
   }
 
 }

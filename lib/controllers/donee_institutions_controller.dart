@@ -1,0 +1,45 @@
+import 'package:bazaar_adm/models/donee_institution.dart';
+import 'package:bazaar_adm/services/donee_institution_service.dart';
+import 'package:get/state_manager.dart';
+
+class DoneeInstitutionController extends GetxController {
+
+  final DoneeInstitutionService _doneeInstitutionService = DoneeInstitutionService();
+  RxList<DoneeInstitution> doneeInstitutions = <DoneeInstitution>[].obs;
+  RxBool isLoading = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    findAllDoneeInstitutions();
+  }
+
+  void findAllDoneeInstitutions() async {
+    isLoading(true);
+    doneeInstitutions.value = List.from(await _doneeInstitutionService.findAllDoneeInstitutions());
+    isLoading(false);
+  }
+
+  void createDoneeInstitution(String name, String address, String phoneNumber, String? description) async {
+    isLoading(true);
+    DoneeInstitution doneeInstitution = DoneeInstitution(name: name, address: address, phoneNumber: phoneNumber, description: description);
+    DoneeInstitution createdDoneeInstitution = await _doneeInstitutionService.createDoneeInstitution(doneeInstitution);
+    doneeInstitutions.add(createdDoneeInstitution);
+    isLoading(false);
+  }
+
+  void updateDoneeInstitution(DoneeInstitution doneeInstitution, int doneeInstitutionIndex) async {
+    isLoading(true);
+    _doneeInstitutionService.updateDoneeInstitution(doneeInstitution);
+    doneeInstitutions[doneeInstitutionIndex] = doneeInstitution;
+    isLoading(false);
+  }
+
+  void deleteDoneeInstitution(int doneeInstitutionId, int doneeInstitutionIndex) {
+    isLoading(true);
+    _doneeInstitutionService.deleteDoneeInstitutionById(doneeInstitutionId);
+    doneeInstitutions.removeAt(doneeInstitutionIndex);
+    isLoading(false);
+  }
+  
+}

@@ -1,9 +1,10 @@
 class ApiConstants {
-  static const String _baseUrl = "http://localhost:8080/api/v1";
+
+  static const String _baseUrl = "http://192.168.1.10:8080/api/v1";
 
   static const String productsUrl = "$_baseUrl/products";
   static const String productsBatchesUrl = "$_baseUrl/products-batches";
-  static const String doneeInstitutionsUrl = "$_baseUrl/donee-instutitions";
+  static const String doneeInstitutionsUrl = "$_baseUrl/donee-institutions";
   static const String supervisoryOrgansUrl = "$_baseUrl/supervisory-organs";
 
   static const Map<String, String> headers = {
@@ -11,7 +12,8 @@ class ApiConstants {
     "Content-type": "application/json"
   };
 
-  static String businessHoursUrl(int doneeInstitutionId) {
+  static String getBusinessHoursUrl(int? doneeInstitutionId) {
     return "$doneeInstitutionsUrl/$doneeInstitutionId/business-hours";
   }
+  
 }

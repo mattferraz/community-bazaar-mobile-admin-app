@@ -3,7 +3,7 @@ class DoneeInstitution {
   String name;
   String address;
   String phoneNumber;
-  String description;
+  String? description;
 
   DoneeInstitution({
     this.id,

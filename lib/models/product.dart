@@ -5,7 +5,7 @@ class Product {
   String name;
   String brand;
   String category;
-  String description;
+  String? description;
   ProductsBatch? productsBatch;
 
   Product({
@@ -13,7 +13,7 @@ class Product {
     required this.name,
     required this.brand,
     required this.category,
-    required this.description,
+    this.description,
     this.productsBatch
   });
 

@@ -10,7 +10,7 @@ class SupervisoryOrgan {
   });
 
   factory SupervisoryOrgan.fromJson(Map<String, dynamic> json) => SupervisoryOrgan(
-    id: int.tryParse(json["id"]),
+    id: json["id"],
     name: json["name"],
     description: json["description"],
   );
