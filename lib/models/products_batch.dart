@@ -5,30 +5,30 @@ class ProductsBatch {
   int? id;
   String note;
   DateTime deliveryDate;
-  SupervisoryOrgan supervisoryOrgan;
-  DoneeInstitution? doneeInstitution;
+  SupervisoryOrgan supervisoryOrganDto;
+  DoneeInstitution? doneeInstitutionDto;
 
   ProductsBatch({
     this.id,
     required this.note,
     required this.deliveryDate,
-    required this.supervisoryOrgan,
-    required this.doneeInstitution
+    required this.supervisoryOrganDto,
+    required this.doneeInstitutionDto
   });
 
   factory ProductsBatch.fromJson(Map<String, dynamic> json) => ProductsBatch(
     id: json["id"],
     note: json["note"],
-    deliveryDate: json["deliveryDate"],
-    supervisoryOrgan: SupervisoryOrgan.fromJson(json["supervisoryOrgan"]),
-    doneeInstitution: DoneeInstitution.fromJson(json["doneeInstitution"])
+    deliveryDate: DateTime.parse(json["deliveryDate"]),
+    supervisoryOrganDto: SupervisoryOrgan.fromJson(json["supervisoryOrganDTO"]),
+    doneeInstitutionDto: DoneeInstitution.fromJson(json["doneeInstitutionDTO"])
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "note": note,
-    "dateTime": deliveryDate.toLocal(),
-    "supervisoryOrgan": supervisoryOrgan.toJson(),
-    "doneeInstitution": doneeInstitution?.toJson()
+    "deliveryDate": deliveryDate.toIso8601String(),
+    "supervisoryOrganDTO": supervisoryOrganDto.toJson(),
+    "doneeInstitutionDTO": doneeInstitutionDto?.toJson()
   };
 }

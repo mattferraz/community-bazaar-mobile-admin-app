@@ -7,6 +7,7 @@ class ProductsController extends GetxController {
   
   final RxList<Product> products = <Product>[].obs;
   final ProductService _productService = ProductService();
+  final RxList<Product> selectedProducts = <Product>[].obs;
   RxBool isLoading = false.obs;
   
   @override
@@ -42,6 +43,16 @@ class ProductsController extends GetxController {
       await _productService.deleteProduct(productId);
       products.removeAt(productIndex);
     }
+    isLoading(false);
+  }
+
+  void deleteMultipleProducts(List<Product> productsToBeDeleted) async {
+    isLoading(true);
+    for (Product product in productsToBeDeleted) {
+      await _productService.deleteProduct(product.id!);
+    }
+    productsToBeDeleted.clear();
+    findAllProducts();
     isLoading(false);
   }
 

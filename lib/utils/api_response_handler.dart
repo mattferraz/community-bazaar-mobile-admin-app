@@ -9,9 +9,10 @@ class ApiResponseHandler {
     switch (response.statusCode) {
       case 200:
       case 201:
-      case 204:
         final decodedJson = json.decode(utf8.decode(response.bodyBytes));
         return decodedJson;
+      case 204:
+        return null;
       default:
         throw HttpException(response.reasonPhrase.toString());
     }

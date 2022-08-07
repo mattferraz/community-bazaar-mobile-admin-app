@@ -6,12 +6,13 @@ class SupervisoryOrgansController extends GetxController {
 
   final RxList<SupervisoryOrgan> supervisoryOrgans = <SupervisoryOrgan>[].obs;
   final SupervisoryOrganService _supervisoryOrganService = SupervisoryOrganService();
+  final RxList<SupervisoryOrgan> selectedSupervisoryOrgans = <SupervisoryOrgan>[].obs;
   RxBool isLoading = false.obs;
 
   @override
   void onInit() {
-    super.onInit();
     findAllSupervisoryOrgans();
+    super.onInit();
   }
 
   void createSupervisoryOrgan(String name, String description) async {
@@ -28,6 +29,13 @@ class SupervisoryOrgansController extends GetxController {
     isLoading(false);
   }
 
+  void updateSupervisoryOrgan(SupervisoryOrgan supervisoryOrgan, int supervisoryOrganIndex) async {
+    isLoading(true);
+    await _supervisoryOrganService.updateSupervisoryOrgan(supervisoryOrgan);
+    supervisoryOrgans[supervisoryOrganIndex] = supervisoryOrgan;
+    isLoading(false);
+  }
+
   void deleteSupervisoryOrgan(int supervisoryOrganId, int supervisoryOrganIndex) async {
     isLoading(true);
     await _supervisoryOrganService.deleteSupervisoryOrgan(supervisoryOrganId);
@@ -35,10 +43,13 @@ class SupervisoryOrgansController extends GetxController {
     isLoading(false);
   }
 
-  void updateSupervisoryOrgan(SupervisoryOrgan supervisoryOrgan, int supervisoryOrganIndex) async {
+  void deleteMultipleSupervisoryOrgans(List<SupervisoryOrgan> supervisoryOrgansToDelete) async {
     isLoading(true);
-    await _supervisoryOrganService.updateSupervisoryOrgan(supervisoryOrgan);
-    supervisoryOrgans[supervisoryOrganIndex] = supervisoryOrgan;
+    for (SupervisoryOrgan supervisoryOrgan in supervisoryOrgansToDelete) {
+      await _supervisoryOrganService.deleteSupervisoryOrgan(supervisoryOrgan.id!);
+    }
+    selectedSupervisoryOrgans.clear();
+    findAllSupervisoryOrgans();
     isLoading(false);
   }
   

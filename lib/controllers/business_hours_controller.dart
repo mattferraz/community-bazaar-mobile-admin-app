@@ -1,6 +1,7 @@
 import 'package:bazaar_adm/models/business_hour.dart';
 import 'package:bazaar_adm/models/donee_institution.dart';
 import 'package:bazaar_adm/services/business_hour_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 class BusinessHoursController extends GetxController {
@@ -15,7 +16,7 @@ class BusinessHoursController extends GetxController {
     isLoading(false);
   }
 
-  void createBusinessHour(int weekday, DateTime openTime, DateTime closeTime, DoneeInstitution doneeInstitution) async {
+  void createBusinessHour(int weekday, TimeOfDay openTime, TimeOfDay closeTime, DoneeInstitution doneeInstitution) async {
     isLoading(true);
     BusinessHour businessHour = BusinessHour(weekday: weekday, openTime: openTime, closeTime: closeTime, doneeInstitution: doneeInstitution);
     if(doneeInstitution.id != null) {

@@ -6,6 +6,7 @@ class DoneeInstitutionController extends GetxController {
 
   final DoneeInstitutionService _doneeInstitutionService = DoneeInstitutionService();
   RxList<DoneeInstitution> doneeInstitutions = <DoneeInstitution>[].obs;
+  RxList<DoneeInstitution> selectedDoneeInstitutions = <DoneeInstitution>[].obs;
   RxBool isLoading = false.obs;
 
   @override
@@ -39,6 +40,16 @@ class DoneeInstitutionController extends GetxController {
     isLoading(true);
     _doneeInstitutionService.deleteDoneeInstitutionById(doneeInstitutionId);
     doneeInstitutions.removeAt(doneeInstitutionIndex);
+    isLoading(false);
+  }
+
+  void deleteMultipleDoneeInstitutions(List<DoneeInstitution> doneeInstitutionsToBeDeleted) async {
+    isLoading(true);
+    for (DoneeInstitution doneeInstitution in doneeInstitutionsToBeDeleted) {
+      await _doneeInstitutionService.deleteDoneeInstitutionById(doneeInstitution.id!);
+    }
+    doneeInstitutionsToBeDeleted.clear();
+    findAllDoneeInstitutions();
     isLoading(false);
   }
   

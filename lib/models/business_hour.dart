@@ -1,10 +1,11 @@
 import 'package:bazaar_adm/models/donee_institution.dart';
+import 'package:flutter/material.dart';
 
 class BusinessHour {
   int? id;
   int weekday;
-  DateTime openTime;
-  DateTime closeTime;
+  TimeOfDay openTime;
+  TimeOfDay closeTime;
   DoneeInstitution doneeInstitution;
 
   BusinessHour({

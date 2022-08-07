@@ -1,4 +1,3 @@
-import 'package:bazaar_adm/widgets/floating_action_button.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/size_config.dart';
@@ -63,7 +62,6 @@ class _BaseViewState extends State<BaseView> {
           )
         ]
       ),
-      floatingActionButton: const CustomFloatingActionButton(),
     );
   }
 }

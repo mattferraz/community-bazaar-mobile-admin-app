@@ -8,6 +8,7 @@ import 'package:get/state_manager.dart';
 class ProductsBatchesController extends GetxController {
   final ProductsBatchService _productsBatchService = ProductsBatchService();
   RxList<ProductsBatch> productsBatches = <ProductsBatch>[].obs;
+  RxList<ProductsBatch> selectedProductsBatches = <ProductsBatch>[].obs;
   RxBool isLoading = false.obs;
 
   @override
@@ -29,7 +30,7 @@ class ProductsBatchesController extends GetxController {
 
   void createProductBatch(String note, DateTime deliveryDate, SupervisoryOrgan supervisoryOrgan, DoneeInstitution? doneeInstitution) async {
     isLoading(true);
-    ProductsBatch productsBatch = ProductsBatch(note: note, deliveryDate: deliveryDate, supervisoryOrgan: supervisoryOrgan, doneeInstitution: doneeInstitution);
+    ProductsBatch productsBatch = ProductsBatch(note: note, deliveryDate: deliveryDate, supervisoryOrganDto: supervisoryOrgan, doneeInstitutionDto: doneeInstitution);
     ProductsBatch createdProductsBatch = await _productsBatchService.createProductsBatch(productsBatch);
     productsBatches.add(createdProductsBatch);
     isLoading(false);
@@ -46,6 +47,16 @@ class ProductsBatchesController extends GetxController {
     isLoading(true);
     await _productsBatchService.deleteProductsBatchById(productsBatchId);
     productsBatches.removeAt(productsBatchIndex);
+    isLoading(false);
+  }
+
+  void deleteMultipleProductsBatches(List<ProductsBatch> productsBatchesToBeDeleted) async {
+    isLoading(true);
+    for (ProductsBatch productsBatch in productsBatchesToBeDeleted) {
+      await _productsBatchService.deleteProductsBatchById(productsBatch.id!);
+    }
+    productsBatchesToBeDeleted.clear();
+    findAllProductsBatches();
     isLoading(false);
   }
   

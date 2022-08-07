@@ -50,7 +50,7 @@ class ProductsBatchService {
       headers: headers,
       body: json.encode(productsBatch.toJson())
     );
-    final Map<String, String> decodedBody = ApiResponseHandler.handleApiReponse(response);
+    final Map<String, dynamic> decodedBody = ApiResponseHandler.handleApiReponse(response);
     final ProductsBatch createdProductsBatch = ProductsBatch.fromJson(decodedBody);
 
     return createdProductsBatch;

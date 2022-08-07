@@ -23,7 +23,7 @@ class Product {
     brand: json["brand"], 
     category: json["category"], 
     description: json["description"],
-    productsBatch: ProductsBatch.fromJson(json["productsBatch"])
+    productsBatch: ProductsBatch.fromJson(json["productsBatchDTO"])
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,6 +32,6 @@ class Product {
     "brand": brand,
     "category": category,
     "description": description,
-    "productsBatch": productsBatch?.toJson()
+    "productsBatchDTO": productsBatch?.toJson()
   };
 }
