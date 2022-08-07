@@ -42,22 +42,22 @@ class _BaseViewState extends State<BaseView> {
         items: [
           BottomNavigationBarItem(
             icon: Image.asset("assets/icons/basket.png", width: 24.0, height: 24.0),
-            label: "Products",
+            label: "Produtos",
             activeIcon: Image.asset("assets/icons/basket.png", width: 24.0, height: 24.0, color: StyleConstants.primaryColor)
           ),
           BottomNavigationBarItem(
             icon: Image.asset("assets/icons/product.png", width: 24.0, height: 24.0),
-            label: "Batches",
+            label: "Lotes",
             activeIcon: Image.asset("assets/icons/product.png", width: 24.0, height: 24.0, color: StyleConstants.primaryColor)
           ),
           BottomNavigationBarItem(
             icon: Image.asset("assets/icons/solidarity.png", width: 24.0, height: 24.0),
-            label: "Donors",
+            label: "Doadores",
             activeIcon: Image.asset("assets/icons/solidarity.png", width: 24.0, height: 24.0, color: StyleConstants.primaryColor)
           ),
           BottomNavigationBarItem(
             icon: Image.asset("assets/icons/insurance.png", width: 24.0, height: 24.0),
-            label: "Supervisors",
+            label: "Fiscalizadores",
             activeIcon: Image.asset("assets/icons/insurance.png", width: 24.0, height: 24.0, color: StyleConstants.primaryColor)
           )
         ]

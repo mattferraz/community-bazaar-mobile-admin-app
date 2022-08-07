@@ -17,7 +17,7 @@ class SupervisoryOrgansView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: StyleConstants.primaryColor,
-        title: const Text("Supervisors"),
+        title: const Text("Fiscalizadores"),
         actions: [
           Obx(() {
             if(_controller.selectedSupervisoryOrgans.isNotEmpty) {

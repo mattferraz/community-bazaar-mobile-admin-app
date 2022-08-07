@@ -32,19 +32,19 @@ class SupervisoryOrganForm extends StatelessWidget {
                   ),
                   const SizedBox(height: 20,),
                   const Text(
-                    "Criar Orgão Supervisor",
+                    "Cadastrar Orgão Supervisor",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 60,),
-                  CustomTextFormField(fieldLabel: "Name", controller: nameController),
+                  CustomTextFormField(fieldLabel: "Nome", controller: nameController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Description", controller: descriptionController),
+                  CustomTextFormField(fieldLabel: "Descrição", controller: descriptionController),
                   const SizedBox(height: 60),
                   CustomButton(
-                    text: "Continue", 
+                    text: "Continuar", 
                     onPressed: () => Navigator.pop(context, [nameController.text, descriptionController.text])
                   )
                 ],

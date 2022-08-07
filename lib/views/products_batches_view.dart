@@ -18,7 +18,7 @@ class ProductsBatchesView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: StyleConstants.primaryColor,
-        title: const Text("Batches"),
+        title: const Text("Lotes"),
         actions: [
           Obx(() {
             if(_controller.selectedProductsBatches.isNotEmpty) {

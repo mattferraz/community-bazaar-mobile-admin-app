@@ -8,6 +8,8 @@ import 'package:bazaar_adm/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants/style_constants.dart';
+
 class ProductsBatchForm extends StatefulWidget {
 
   const ProductsBatchForm({Key? key}) : super(key: key);
@@ -50,31 +52,50 @@ class _ProductsBatchFormState extends State<ProductsBatchForm> {
                   ),
                   const SizedBox(height: 20,),
                   const Text(
-                    "Criar Lote de Produtos",
+                    "Cadastrar Lote de Produtos",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 60,),
-                  CustomTextFormField(fieldLabel: "Note", controller: noteController),
+                  const SizedBox(height: 40,),
+                  CustomTextFormField(fieldLabel: "Observação", controller: noteController),
                   const SizedBox(height: 20),
-                  DropdownButton<dynamic>(
+                  DropdownButtonFormField<dynamic>(
                     items: List<DropdownMenuItem>.from(_doneeInstitutionController.doneeInstitutions.map((element) => DropdownMenuItem(value: element, child: Text(element.name)))),
                     value: doneeInstitution,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1.5, color: Colors.grey.shade400)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 1.5, color: StyleConstants.primaryColor)
+                      ),
+                      label: const Text("Instituição Donatária"),
+                      fillColor: Colors.white
+                    ),
                     onChanged: (value) {
                       if (value is DoneeInstitution) {
                         setState(() {
                           doneeInstitution = value;
-                          print(doneeInstitution!.id);
                         });
                       }
                     }
                   ),
                   const SizedBox(height: 20,),
-                  DropdownButton<dynamic>(
+                  DropdownButtonFormField<dynamic>(
                     items: List<DropdownMenuItem>.from(_supervisoryOrgansController.supervisoryOrgans.map((element) => DropdownMenuItem(value: element, child: Text(element.name)))),
                     value: supervisoryOrgan,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1.5, color: Colors.grey.shade400)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 1.5, color: StyleConstants.primaryColor)
+                      ),
+                      label: const Text("Orgão Supervisor"),
+                      fillColor: Colors.white
+                    ),
                     onChanged: (value) {
                       if (value is SupervisoryOrgan) {
                         setState(() {
@@ -83,9 +104,9 @@ class _ProductsBatchFormState extends State<ProductsBatchForm> {
                       }
                     }
                   ),
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 40),
                   CustomButton(
-                    text: "Continue", 
+                    text: "Continuar", 
                     onPressed: () => Navigator.pop(context, [noteController.text, DateTime.now().toLocal(), supervisoryOrgan, doneeInstitution])
                   )
                 ],

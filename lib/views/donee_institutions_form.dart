@@ -41,16 +41,16 @@ class DoneeInstitutionForm extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 60,),
-                  CustomTextFormField(fieldLabel: "Name", controller: nameController),
+                  CustomTextFormField(fieldLabel: "Nome", controller: nameController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Address", controller: addressController),
+                  CustomTextFormField(fieldLabel: "Endereço", controller: addressController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Phone Number", controller: phoneNumberController),
+                  CustomTextFormField(fieldLabel: "Telefone", controller: phoneNumberController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Description", controller: descriptionController),
+                  CustomTextFormField(fieldLabel: "Descrição", controller: descriptionController),
                   const SizedBox(height: 60),
                   CustomButton(
-                    text: "Continue", 
+                    text: "Continuar", 
                     onPressed: () => Navigator.pop(context, [nameController.text, addressController.text, phoneNumberController.text, descriptionController?.text])
                   )
                 ],

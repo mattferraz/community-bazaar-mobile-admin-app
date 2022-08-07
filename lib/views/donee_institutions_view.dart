@@ -18,7 +18,7 @@ class DoneeInstitutionsView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: StyleConstants.primaryColor,
-        title: const Text("Supervisors"),
+        title: const Text("Doadores"),
         actions: [
           Obx(() {
             if(_controller.selectedDoneeInstitutions.isNotEmpty) {

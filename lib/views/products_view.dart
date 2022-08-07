@@ -17,7 +17,7 @@ class ProductsView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: StyleConstants.primaryColor,
-        title: const Text("Products"),
+        title: const Text("Produtos"),
         actions: [
           Obx(() {
             if(_controller.selectedProducts.isNotEmpty) {

@@ -6,6 +6,8 @@ import 'package:bazaar_adm/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants/style_constants.dart';
+
 class ProductsForm extends StatefulWidget {
 
   const ProductsForm({Key? key}) : super(key: key);
@@ -50,35 +52,45 @@ class _ProductsFormState extends State<ProductsForm> {
                   ),
                   const SizedBox(height: 20,),
                   const Text(
-                    "Cadastrar Instituição Donatária",
+                    "Cadastrar Produto",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 60,),
-                  CustomTextFormField(fieldLabel: "Name", controller: nameController),
+                  const SizedBox(height: 40,),
+                  CustomTextFormField(fieldLabel: "Nome", controller: nameController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Brand", controller: categoryController),
+                  CustomTextFormField(fieldLabel: "Marca", controller: categoryController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Category", controller: brandController),
+                  CustomTextFormField(fieldLabel: "Categoria", controller: brandController),
                   const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Description", controller: descriptionController),
-                  DropdownButton<dynamic>(
+                  CustomTextFormField(fieldLabel: "Descrição", controller: descriptionController),
+                  const SizedBox(height: 20),
+                  DropdownButtonFormField<dynamic>(
                     items: List<DropdownMenuItem>.from(_productsBatchesController.productsBatches.map((element) => DropdownMenuItem(value: element, child: Text("${element.id}: ${element.supervisoryOrganDto.name} -> ${element.doneeInstitutionDto?.name}")))),
                     value: productsBatchSelected,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1.5, color: Colors.grey.shade400)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 1.5, color: StyleConstants.primaryColor)
+                      ),
+                      label: const Text("Lote de Produtos"),
+                      fillColor: Colors.white
+                    ),
                     onChanged: (value) {
                       if (value is ProductsBatch) {
                         setState(() {
                           productsBatchSelected = value;
-                          print(productsBatchSelected!.id);
                         });
                       }
                     }
                   ),
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 40),
                   CustomButton(
-                    text: "Continue", 
+                    text: "Continuar", 
                     onPressed: () => Navigator.pop(context, [nameController.text, brandController.text, categoryController.text, descriptionController?.text, productsBatchSelected])
                   )
                 ],
