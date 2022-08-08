@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String? fieldLabel;
+  final String? initialValue;
+  final VoidCallback? onTap;
+  final bool isReadOnly;
 
   const CustomTextFormField({
     this.controller,
     this.fieldLabel,
+    this.initialValue,
+    this.onTap,
+    this.isReadOnly = false,
     Key? key
   }) : super(key: key);
 
@@ -15,6 +21,9 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      initialValue: initialValue,
+      onTap: onTap,
+      readOnly: isReadOnly,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(width: 1.5, color: Colors.grey.shade400)),

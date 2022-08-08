@@ -8,6 +8,7 @@ class BusinessHoursController extends GetxController {
 
   final BusinessHourService _businessHourService = BusinessHourService();
   RxList<BusinessHour> businessHours = <BusinessHour>[].obs;
+  RxList<BusinessHour> selectedBusinessHours = <BusinessHour>[].obs;
   RxBool isLoading = false.obs;
 
   void findAllBusinessHourFromDoneeInstitution(int doneeInstitutionId) async {
@@ -26,9 +27,10 @@ class BusinessHoursController extends GetxController {
     isLoading(false);
   }
 
-  void updateBusinessHour(BusinessHour businessHour, int businessHourIndex) async {
+  void updateBusinessHour(BusinessHour businessHour) async {
     isLoading(true);
     await _businessHourService.updateBusinessHour(businessHour);
+    int businessHourIndex = businessHours.indexWhere((element) => element.id == businessHour.id);
     businessHours[businessHourIndex] = businessHour;
     isLoading(false);
   }
@@ -37,6 +39,16 @@ class BusinessHoursController extends GetxController {
     isLoading(true);
     await _businessHourService.deleteBusinessHourById(doneeInstitutionId, businessHourId);
     businessHours.removeAt(businessHourIndex);
+    isLoading(false);
+  }
+
+  void deleteMultipleBusinessHours(int doneeInstitutionId, List<BusinessHour> businessHoursToBeDeleted) async {
+    isLoading(true);
+    for (BusinessHour businessHour in businessHoursToBeDeleted) {
+      await _businessHourService.deleteBusinessHourById(businessHour.doneeInstitution.id!, businessHour.id!);
+    }
+    selectedBusinessHours.clear();
+    findAllBusinessHourFromDoneeInstitution(doneeInstitutionId);
     isLoading(false);
   }
   

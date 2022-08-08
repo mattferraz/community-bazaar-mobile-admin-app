@@ -1,5 +1,6 @@
 import 'package:bazaar_adm/constants/size_config.dart';
 import 'package:bazaar_adm/controllers/donee_institutions_controller.dart';
+import 'package:bazaar_adm/controllers/products_batches_controller.dart';
 import 'package:bazaar_adm/controllers/supervisory_organs_controller.dart';
 import 'package:bazaar_adm/models/donee_institution.dart';
 import 'package:bazaar_adm/models/supervisory_organ.dart';
@@ -8,27 +9,43 @@ import 'package:bazaar_adm/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../constants/style_constants.dart';
+import '../../constants/style_constants.dart';
+import '../../models/products_batch.dart';
 
 class ProductsBatchForm extends StatefulWidget {
+  final ProductsBatch? productsBatch;
 
-  const ProductsBatchForm({Key? key}) : super(key: key);
+  const ProductsBatchForm({
+    this.productsBatch,
+    Key? key
+  }) : super(key: key);
 
   @override
   State<ProductsBatchForm> createState() => _ProductsBatchFormState();
 }
 
 class _ProductsBatchFormState extends State<ProductsBatchForm> {
+
   final TextEditingController noteController = TextEditingController();
 
   final SupervisoryOrgansController _supervisoryOrgansController = Get.put(SupervisoryOrgansController());
 
   final DoneeInstitutionController _doneeInstitutionController = Get.put(DoneeInstitutionController());
 
+  final ProductsBatchesController _controller = Get.find<ProductsBatchesController>();
+
   DoneeInstitution? doneeInstitution;
 
   SupervisoryOrgan? supervisoryOrgan;
 
+  @override
+  void initState() {
+    if (widget.productsBatch != null) {
+      noteController.text = widget.productsBatch!.note;
+    }
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,13 +63,20 @@ class _ProductsBatchFormState extends State<ProductsBatchForm> {
                   Container(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.close)
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  const Text(
+                  widget.productsBatch == null ? const Text(
                     "Cadastrar Lote de Produtos",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                  : const Text(
+                    "Editar Lote de Produtos",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
@@ -107,7 +131,15 @@ class _ProductsBatchFormState extends State<ProductsBatchForm> {
                   const SizedBox(height: 40),
                   CustomButton(
                     text: "Continuar", 
-                    onPressed: () => Navigator.pop(context, [noteController.text, DateTime.now().toLocal(), supervisoryOrgan, doneeInstitution])
+                    onPressed: widget.productsBatch == null ? () {
+                      Navigator.pop(context, [noteController.text, DateTime.now().toLocal(), supervisoryOrgan, doneeInstitution]);
+                    } :() {
+                      widget.productsBatch!.note = noteController.text;
+                      widget.productsBatch!.supervisoryOrganDto = supervisoryOrgan!;
+                      widget.productsBatch!.doneeInstitutionDto = doneeInstitution;
+                      _controller.updateProductBatch(widget.productsBatch!);
+                      Navigator.pop(context);
+                    }
                   )
                 ],
               )

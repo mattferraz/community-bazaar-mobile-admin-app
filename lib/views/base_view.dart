@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../constants/size_config.dart';
 import '../constants/style_constants.dart';
-import 'donee_institutions_view.dart';
-import 'products_batches_view.dart';
-import 'products_view.dart';
-import 'supervisory_organs_view.dart';
+import 'donee_institutions/donee_institutions_view.dart';
+import 'products_batches/products_batches_view.dart';
+import 'products/products_view.dart';
+import 'supervisory_organs/supervisory_organs_view.dart';
 
 class BaseView extends StatefulWidget {
   const BaseView({Key? key}) : super(key: key);

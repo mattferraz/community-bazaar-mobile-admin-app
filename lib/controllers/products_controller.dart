@@ -30,9 +30,10 @@ class ProductsController extends GetxController {
     isLoading(false);
   }
 
-  void updateProduct(Product product, int productIndex) async {
+  void updateProduct(Product product) async {
     isLoading(true);
     await _productService.updateProduct(product);
+    int productIndex = products.indexWhere((element) => element.id == product.id);
     products[productIndex] = product;
     isLoading(false);
   }

@@ -1,13 +1,16 @@
-import 'package:bazaar_adm/constants/size_config.dart';
-import 'package:bazaar_adm/widgets/button.dart';
-import 'package:bazaar_adm/widgets/text_form_field.dart';
+import 'package:bazaar_adm/views/business_hours/business_hours_view.dart';
 import 'package:flutter/material.dart';
 
-class SupervisoryOrganForm extends StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+import '../../constants/size_config.dart';
+import '../../models/donee_institution.dart';
+import '../../widgets/button.dart';
 
-  SupervisoryOrganForm({Key? key}) : super(key: key);
+class DoneeInstitutionCreatedTransition extends StatelessWidget {
+  final DoneeInstitution doneeInstitution;
+  const DoneeInstitutionCreatedTransition({
+    required this.doneeInstitution,
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +29,23 @@ class SupervisoryOrganForm extends StatelessWidget {
                   Container(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close)
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close_rounded)
                     ),
                   ),
                   const SizedBox(height: 20,),
                   const Text(
-                    "Cadastrar Orgão Supervisor",
+                    "Cadastre os horários de funcionamento da instituição",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 60,),
-                  CustomTextFormField(fieldLabel: "Nome", controller: nameController),
-                  const SizedBox(height: 20),
-                  CustomTextFormField(fieldLabel: "Descrição", controller: descriptionController),
-                  const SizedBox(height: 60),
+                  Image.asset("assets/images/Time management-rafiki(1).png", height: SizeConfig.kDeviceHeight * 0.55),
                   CustomButton(
                     text: "Continuar", 
-                    onPressed: () => Navigator.pop(context, [nameController.text, descriptionController.text])
+                    onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessHourView(doneeInstitution: doneeInstitution)))
                   )
                 ],
               )

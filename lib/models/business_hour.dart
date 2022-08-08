@@ -1,4 +1,5 @@
 import 'package:bazaar_adm/models/donee_institution.dart';
+import 'package:bazaar_adm/utils/date_time_formatter.dart';
 import 'package:flutter/material.dart';
 
 class BusinessHour {
@@ -19,16 +20,16 @@ class BusinessHour {
   factory BusinessHour.fromJson(Map<String, dynamic> json) => BusinessHour(
     id: json["id"],
     weekday: json["weekday"], 
-    openTime: json["openTime"], 
-    closeTime: json["closeTime"], 
-    doneeInstitution: DoneeInstitution.fromJson(json["doneeInstitution"])
+    openTime: DateTimeFormatter.jsonToTime(json["openTime"]), 
+    closeTime: DateTimeFormatter.jsonToTime(json["closeTime"]), 
+    doneeInstitution: DoneeInstitution.fromJson(json["doneeInstitutionDto"])
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "weekday": weekday,
-    "openTime": openTime,
-    "closeTime": closeTime,
-    "doneeInstitution": doneeInstitution.toJson()
+    "openTime": DateTimeFormatter.timeToJson(openTime),
+    "closeTime": DateTimeFormatter.timeToJson(closeTime),
+    "doneeInstitutionDto": doneeInstitution.toJson()
   };
 }

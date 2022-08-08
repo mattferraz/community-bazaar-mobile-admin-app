@@ -19,7 +19,7 @@ class ProductsBatch {
   factory ProductsBatch.fromJson(Map<String, dynamic> json) => ProductsBatch(
     id: json["id"],
     note: json["note"],
-    deliveryDate: DateTime.parse(json["deliveryDate"]),
+    deliveryDate: DateTime.parse(json["deliveryDate"]).toLocal(),
     supervisoryOrganDto: SupervisoryOrgan.fromJson(json["supervisoryOrganDTO"]),
     doneeInstitutionDto: DoneeInstitution.fromJson(json["doneeInstitutionDTO"])
   );

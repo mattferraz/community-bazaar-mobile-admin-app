@@ -21,17 +21,19 @@ class DoneeInstitutionController extends GetxController {
     isLoading(false);
   }
 
-  void createDoneeInstitution(String name, String address, String phoneNumber, String? description) async {
+  Future<DoneeInstitution> createDoneeInstitution(String name, String address, String phoneNumber, String? description) async {
     isLoading(true);
     DoneeInstitution doneeInstitution = DoneeInstitution(name: name, address: address, phoneNumber: phoneNumber, description: description);
     DoneeInstitution createdDoneeInstitution = await _doneeInstitutionService.createDoneeInstitution(doneeInstitution);
     doneeInstitutions.add(createdDoneeInstitution);
     isLoading(false);
+    return createdDoneeInstitution;
   }
 
-  void updateDoneeInstitution(DoneeInstitution doneeInstitution, int doneeInstitutionIndex) async {
+  void updateDoneeInstitution(DoneeInstitution doneeInstitution) async {
     isLoading(true);
     _doneeInstitutionService.updateDoneeInstitution(doneeInstitution);
+    int doneeInstitutionIndex = doneeInstitutions.indexWhere((element) => element.id == doneeInstitution.id);
     doneeInstitutions[doneeInstitutionIndex] = doneeInstitution;
     isLoading(false);
   }

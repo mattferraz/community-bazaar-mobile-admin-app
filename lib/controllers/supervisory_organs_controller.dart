@@ -29,9 +29,10 @@ class SupervisoryOrgansController extends GetxController {
     isLoading(false);
   }
 
-  void updateSupervisoryOrgan(SupervisoryOrgan supervisoryOrgan, int supervisoryOrganIndex) async {
+  void updateSupervisoryOrgan(SupervisoryOrgan supervisoryOrgan) async {
     isLoading(true);
     await _supervisoryOrganService.updateSupervisoryOrgan(supervisoryOrgan);
+    int supervisoryOrganIndex = supervisoryOrgans.indexWhere((element) => element.id == supervisoryOrgan.id);
     supervisoryOrgans[supervisoryOrganIndex] = supervisoryOrgan;
     isLoading(false);
   }

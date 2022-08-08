@@ -36,9 +36,10 @@ class ProductsBatchesController extends GetxController {
     isLoading(false);
   }
 
-  void updateProductBatch(ProductsBatch productsBatch, int productsBatchIndex) async {
+  void updateProductBatch(ProductsBatch productsBatch) async {
     isLoading(true);
     await _productsBatchService.updateProductsBatch(productsBatch);
+    int productsBatchIndex = productsBatches.indexWhere((element) => element.id == productsBatch.id);
     productsBatches[productsBatchIndex] = productsBatch;
     isLoading(false);
   }

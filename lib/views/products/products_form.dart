@@ -1,16 +1,23 @@
 import 'package:bazaar_adm/constants/size_config.dart';
 import 'package:bazaar_adm/controllers/products_batches_controller.dart';
+import 'package:bazaar_adm/controllers/products_controller.dart';
+import 'package:bazaar_adm/models/product.dart';
 import 'package:bazaar_adm/models/products_batch.dart';
 import 'package:bazaar_adm/widgets/button.dart';
 import 'package:bazaar_adm/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../constants/style_constants.dart';
+import '../../constants/style_constants.dart';
 
 class ProductsForm extends StatefulWidget {
 
-  const ProductsForm({Key? key}) : super(key: key);
+  final Product? product;
+
+  const ProductsForm({
+    this.product,
+    Key? key
+  }) : super(key: key);
 
   @override
   State<ProductsForm> createState() => _ProductsFormState();
@@ -27,7 +34,20 @@ class _ProductsFormState extends State<ProductsForm> {
 
   final ProductsBatchesController _productsBatchesController = Get.put(ProductsBatchesController());
 
+  final ProductsController _controller = Get.find<ProductsController>();
+
   ProductsBatch? productsBatchSelected;
+  
+  @override
+  void initState() {
+    if (widget.product != null) {
+      nameController.text = widget.product!.name;
+      brandController.text = widget.product!.brand;
+      categoryController.text = widget.product!.category;
+      descriptionController?.text = widget.product!.description ?? "";
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +66,20 @@ class _ProductsFormState extends State<ProductsForm> {
                   Container(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.close)
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  const Text(
+                  widget.product == null ? const Text(
                     "Cadastrar Produto",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                  : const Text(
+                    "Editar Produto",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
@@ -91,7 +118,18 @@ class _ProductsFormState extends State<ProductsForm> {
                   const SizedBox(height: 40),
                   CustomButton(
                     text: "Continuar", 
-                    onPressed: () => Navigator.pop(context, [nameController.text, brandController.text, categoryController.text, descriptionController?.text, productsBatchSelected])
+                    onPressed: widget.product == null ? () {
+                      Navigator.pop(context, [nameController.text, brandController.text, categoryController.text, descriptionController?.text, productsBatchSelected]);
+                    }
+                    :() {
+                      widget.product!.name = nameController.text;
+                      widget.product!.brand = brandController.text;
+                      widget.product!.category = categoryController.text;
+                      widget.product!.description = descriptionController?.text;
+                      widget.product!.productsBatch = productsBatchSelected;
+                      _controller.updateProduct(widget.product!);
+                      Navigator.pop(context);
+                    }
                   )
                 ],
               )
